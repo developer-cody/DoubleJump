@@ -29,7 +29,7 @@ namespace DoubleJump
             {
                 if (ControllerInputPoller.instance.rightControllerPrimaryButton && Time.time >= _lastJumpTime + _jumpCooldown)
                 {
-                    GTPlayer.Instance.ApplyKnockback(Vector3.up, _jumpForce, false);
+                    GTPlayer.Instance.ApplyKnockback(Vector3.up, _jumpForce);
                     _lastJumpTime = Time.time;
                 }
             }
