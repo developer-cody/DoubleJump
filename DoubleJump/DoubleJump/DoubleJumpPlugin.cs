@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using GorillaLocomotion;
 using UnityEngine;
 
@@ -21,14 +21,17 @@ namespace DoubleJump
 
         private void Update()
         {
-            if (!_isEnabled || NetworkSystem.Instance.InRoom || NetworkSystem.Instance.GameModeString.Contains("MODDED")) return;
+            if (!_isEnabled) return;
 
             ValidateSettings();
 
-            if (ControllerInputPoller.instance.rightControllerPrimaryButton && Time.time >= _lastJumpTime + _jumpCooldown)
+            if (NetworkSystem.Instance.InRoom && NetworkSystem.Instance.GameModeString.Contains("MODDED"))
             {
-                GTPlayer.Instance.ApplyKnockback(Vector3.up, _jumpForce, false);
-                _lastJumpTime = Time.time;
+                if (ControllerInputPoller.instance.rightControllerPrimaryButton && Time.time >= _lastJumpTime + _jumpCooldown)
+                {
+                    GTPlayer.Instance.ApplyKnockback(Vector3.up, _jumpForce, false);
+                    _lastJumpTime = Time.time;
+                }
             }
         }
 
